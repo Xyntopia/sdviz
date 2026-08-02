@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "jurisdiction": {
     "id": "city-of-san-diego",
     "name": "City of San Diego",
@@ -392,7 +392,24 @@
           "sourceIds": [
             "appropriation-ordinance"
           ],
-          "breakdowns": {}
+          "breakdowns": {
+            "revenueSources": {
+              "key": "revenueSources",
+              "label": "General Fund revenue sources",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "basis": "reconciledFinal",
+              "sumMode": "additive",
+              "kind": "children",
+              "note": "Major categories use rounded May Revision estimates; residual categories reconcile to the exact enacted General Fund total."
+            }
+          }
         },
         "resource:special": {
           "id": "resource:special",
@@ -519,6 +536,24 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -553,7 +588,22 @@
           "sourceIds": [
             "draft-volume-2"
           ],
-          "breakdowns": {},
+          "breakdowns": {
+            "salaryComponents": {
+              "key": "salaryComponents",
+              "label": "Salary and wage components",
+              "kind": "children",
+              "basis": "derivedClassification",
+              "sumMode": "additive",
+              "children": [
+                "gf-department:police:salary:base-position-wages",
+                "gf-department:police:salary:overtime-budgeted",
+                "gf-department:police:salary:premium-and-other-pay",
+                "gf-department:police:salary:budgeted-savings"
+              ],
+              "note": "Groups the official FY2027 salary and wage lines into readable components. Derived groups reconcile exactly to published Personnel Cost."
+            }
+          },
           "metrics": {
             "fy2025": 355866372,
             "fy2026": 363620338,
@@ -569,7 +619,49 @@
           "sourceIds": [
             "draft-volume-2"
           ],
-          "breakdowns": {},
+          "breakdowns": {
+            "benefitComponents": {
+              "key": "benefitComponents",
+              "label": "Fringe benefit components",
+              "kind": "children",
+              "basis": "draftDetail",
+              "sumMode": "additive",
+              "children": [
+                "gf-department:police:fringe:401-a-plan-mandatory",
+                "gf-department:police:fringe:cers-drop-general",
+                "gf-department:police:fringe:cers-drop-safety-police",
+                "gf-department:police:fringe:cers-general-retirement",
+                "gf-department:police:fringe:cers-general-retirement-2010",
+                "gf-department:police:fringe:cers-safety-police-2010",
+                "gf-department:police:fringe:cers-safety-police-2012",
+                "gf-department:police:fringe:cers-safety-police-2013",
+                "gf-department:police:fringe:cers-safety-police-2014",
+                "gf-department:police:fringe:cers-safety-police",
+                "gf-department:police:fringe:cers-uaal-classified",
+                "gf-department:police:fringe:cers-uaal-mea-admin-field",
+                "gf-department:police:fringe:cers-uaal-mea-professional",
+                "gf-department:police:fringe:cers-uaal-mea-supervisory",
+                "gf-department:police:fringe:cers-uaal-mea-technical",
+                "gf-department:police:fringe:cers-uaal-police-active",
+                "gf-department:police:fringe:cers-uaal-police-drop",
+                "gf-department:police:fringe:employer-contribution-rmt",
+                "gf-department:police:fringe:executive-life-insurance",
+                "gf-department:police:fringe:fica-medicare",
+                "gf-department:police:fringe:flexible-benefit-plan",
+                "gf-department:police:fringe:long-term-disability",
+                "gf-department:police:fringe:retiree-health-contribution",
+                "gf-department:police:fringe:risk-management-administration",
+                "gf-department:police:fringe:spsp-h-budgeted",
+                "gf-department:police:fringe:spsp-h-general-members",
+                "gf-department:police:fringe:spsp-h-public-safety",
+                "gf-department:police:fringe:supp-pension-savings-mandatory",
+                "gf-department:police:fringe:supp-pension-savings-voluntary",
+                "gf-department:police:fringe:unemployment-insurance",
+                "gf-department:police:fringe:workers-comp-insurance"
+              ],
+              "note": "Exact FY2027 draft line items from the Police personnel expenditure table."
+            }
+          },
           "metrics": {
             "fy2025": 247883892,
             "fy2026": 251075250,
@@ -873,12 +965,15 @@
                 "gf-department:fire-rescue:expense:contracts-and-services",
                 "gf-department:fire-rescue:expense:information-technology",
                 "gf-department:fire-rescue:expense:energy-and-utilities",
-                "gf-department:fire-rescue:expense:other-expenses"
+                "gf-department:fire-rescue:expense:other-expenses",
+                "gf-department:fire-rescue:expense:transfers-out",
+                "gf-department:fire-rescue:expense:capital-expenses",
+                "gf-department:fire-rescue:expense:debt-expenses"
               ],
               "basis": "draftDetail",
               "sumMode": "additive",
               "kind": "children",
-              "note": "An orthogonal accounting view of the same draft operating budget."
+              "note": "Combined General Fund detail for Fire-Rescue and the Office of Emergency Services, which merged into the department for FY2027."
             },
             "revenueCategories": {
               "key": "revenueCategories",
@@ -906,6 +1001,24 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -1094,23 +1207,38 @@
         "gf-department:fire-rescue:expense:personnel-cost": {
           "id": "gf-department:fire-rescue:expense:personnel-cost",
           "label": "Personnel Cost",
-          "amount": 2166503,
+          "amount": 216127467,
           "stage": "draftDetail",
           "type": "expenseCategory",
           "sourceIds": [
             "draft-volume-2"
           ],
-          "breakdowns": {},
+          "breakdowns": {
+            "salaryComponents": {
+              "key": "salaryComponents",
+              "label": "Salary and wage components",
+              "kind": "children",
+              "basis": "derivedClassification",
+              "sumMode": "additive",
+              "children": [
+                "gf-department:fire-rescue:salary:base-position-wages",
+                "gf-department:fire-rescue:salary:overtime-budgeted",
+                "gf-department:fire-rescue:salary:premium-and-other-pay",
+                "gf-department:fire-rescue:salary:budgeted-savings"
+              ],
+              "note": "Groups the official FY2027 salary and wage lines into readable components and reconciles exactly to Personnel Cost."
+            }
+          },
           "metrics": {
-            "fy2025": 2065116,
-            "fy2026": 2289060,
-            "change": -122557
+            "fy2025": 205682731,
+            "fy2026": 203993689,
+            "change": 12133778
           }
         },
         "gf-department:fire-rescue:expense:fringe-benefits": {
           "id": "gf-department:fire-rescue:expense:fringe-benefits",
           "label": "Fringe Benefits",
-          "amount": 1226534,
+          "amount": 133058782,
           "stage": "draftDetail",
           "type": "expenseCategory",
           "sourceIds": [
@@ -1118,15 +1246,15 @@
           ],
           "breakdowns": {},
           "metrics": {
-            "fy2025": 1112028,
-            "fy2026": 1182641,
-            "change": 43893
+            "fy2025": 116925512,
+            "fy2026": 129915674,
+            "change": 3143108
           }
         },
         "gf-department:fire-rescue:expense:supplies": {
           "id": "gf-department:fire-rescue:expense:supplies",
           "label": "Supplies",
-          "amount": 22389,
+          "amount": 6013420,
           "stage": "draftDetail",
           "type": "expenseCategory",
           "sourceIds": [
@@ -1134,15 +1262,15 @@
           ],
           "breakdowns": {},
           "metrics": {
-            "fy2025": 6400,
-            "fy2026": 20367,
-            "change": 2022
+            "fy2025": 5759020,
+            "fy2026": 5622044,
+            "change": 391376
           }
         },
         "gf-department:fire-rescue:expense:contracts-and-services": {
           "id": "gf-department:fire-rescue:expense:contracts-and-services",
           "label": "Contracts & Services",
-          "amount": 417856,
+          "amount": 24074629,
           "stage": "draftDetail",
           "type": "expenseCategory",
           "sourceIds": [
@@ -1150,15 +1278,15 @@
           ],
           "breakdowns": {},
           "metrics": {
-            "fy2025": 435244,
-            "fy2026": 454834,
-            "change": -36978
+            "fy2025": 22877697,
+            "fy2026": 22426367,
+            "change": 1648262
           }
         },
         "gf-department:fire-rescue:expense:information-technology": {
           "id": "gf-department:fire-rescue:expense:information-technology",
           "label": "Information Technology",
-          "amount": 392930,
+          "amount": 8625920,
           "stage": "draftDetail",
           "type": "expenseCategory",
           "sourceIds": [
@@ -1166,15 +1294,15 @@
           ],
           "breakdowns": {},
           "metrics": {
-            "fy2025": 353274,
-            "fy2026": 332759,
-            "change": 60171
+            "fy2025": 7504789,
+            "fy2026": 8269008,
+            "change": 356912
           }
         },
         "gf-department:fire-rescue:expense:energy-and-utilities": {
           "id": "gf-department:fire-rescue:expense:energy-and-utilities",
           "label": "Energy and Utilities",
-          "amount": 74665,
+          "amount": 8682962,
           "stage": "draftDetail",
           "type": "expenseCategory",
           "sourceIds": [
@@ -1182,15 +1310,15 @@
           ],
           "breakdowns": {},
           "metrics": {
-            "fy2025": 74909,
-            "fy2026": 85220,
-            "change": -10555
+            "fy2025": 6985069,
+            "fy2026": 7673551,
+            "change": 1009411
           }
         },
         "gf-department:fire-rescue:expense:other-expenses": {
           "id": "gf-department:fire-rescue:expense:other-expenses",
           "label": "Other Expenses",
-          "amount": 4000,
+          "amount": 113045,
           "stage": "draftDetail",
           "type": "expenseCategory",
           "sourceIds": [
@@ -1198,8 +1326,8 @@
           ],
           "breakdowns": {},
           "metrics": {
-            "fy2025": 3941,
-            "fy2026": 3000,
+            "fy2025": 19232,
+            "fy2026": 112045,
             "change": 1000
           }
         },
@@ -1352,6 +1480,24 @@
               "sumMode": "additive",
               "kind": "children",
               "note": "An orthogonal accounting view of the same draft operating budget."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -1768,7 +1914,8 @@
                 "gf-department:parks-and-recreation:program:mission-bay-park-and-shoreline-parks",
                 "gf-department:parks-and-recreation:program:open-space",
                 "gf-department:parks-and-recreation:program:park-ranger-division",
-                "gf-department:parks-and-recreation:program:parks-and-recreation"
+                "gf-department:parks-and-recreation:program:parks-and-recreation",
+                "gf-department:parks-and-recreation:program:published-total-remainder"
               ],
               "basis": "draftDetail",
               "sumMode": "additive",
@@ -1822,13 +1969,31 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
             "adoptedAmount": 195764914,
-            "draftDetailAmount": 193216459,
-            "delta": 2548455,
-            "note": "Exact adopted department total versus latest published draft program detail."
+            "draftDetailAmount": 193433822,
+            "delta": 2331092,
+            "note": "Exact adopted department total versus the published FY2027 draft General Fund expenditure total."
           }
         },
         "gf-department:parks-and-recreation:program:administrative-services": {
@@ -2000,7 +2165,22 @@
           "sourceIds": [
             "draft-volume-2"
           ],
-          "breakdowns": {},
+          "breakdowns": {
+            "salaryComponents": {
+              "key": "salaryComponents",
+              "label": "Salary and wage components",
+              "kind": "children",
+              "basis": "derivedClassification",
+              "sumMode": "additive",
+              "children": [
+                "gf-department:parks-and-recreation:salary:base-position-wages",
+                "gf-department:parks-and-recreation:salary:overtime-budgeted",
+                "gf-department:parks-and-recreation:salary:premium-and-other-pay",
+                "gf-department:parks-and-recreation:salary:budgeted-savings"
+              ],
+              "note": "Groups the official FY2027 salary and wage lines into readable components and reconciles exactly to Personnel Cost."
+            }
+          },
           "metrics": {
             "fy2025": 67797030,
             "fy2026": 69985846,
@@ -2335,6 +2515,24 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -2433,7 +2631,22 @@
           "sourceIds": [
             "draft-volume-2"
           ],
-          "breakdowns": {},
+          "breakdowns": {
+            "salaryComponents": {
+              "key": "salaryComponents",
+              "label": "Salary and wage components",
+              "kind": "children",
+              "basis": "derivedClassification",
+              "sumMode": "additive",
+              "children": [
+                "gf-department:transportation:salary:base-position-wages",
+                "gf-department:transportation:salary:overtime-budgeted",
+                "gf-department:transportation:salary:premium-and-other-pay",
+                "gf-department:transportation:salary:budgeted-savings"
+              ],
+              "note": "Groups the official FY2027 salary and wage lines into readable components and reconciles exactly to Personnel Cost."
+            }
+          },
           "metrics": {
             "fy2025": 47733295,
             "fy2026": 49010141,
@@ -2754,6 +2967,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -2868,7 +3099,22 @@
           "sourceIds": [
             "draft-volume-2"
           ],
-          "breakdowns": {},
+          "breakdowns": {
+            "salaryComponents": {
+              "key": "salaryComponents",
+              "label": "Salary and wage components",
+              "kind": "children",
+              "basis": "derivedClassification",
+              "sumMode": "additive",
+              "children": [
+                "gf-department:city-attorney:salary:base-position-wages",
+                "gf-department:city-attorney:salary:overtime-budgeted",
+                "gf-department:city-attorney:salary:premium-and-other-pay",
+                "gf-department:city-attorney:salary:budgeted-savings"
+              ],
+              "note": "Groups the official FY2027 salary and wage lines into readable components and reconciles exactly to Personnel Cost."
+            }
+          },
           "metrics": {
             "fy2025": 56438648,
             "fy2026": 57491041,
@@ -3144,6 +3390,24 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -3654,6 +3918,24 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -4028,6 +4310,24 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -4285,6 +4585,24 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -4701,6 +5019,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -5035,6 +5371,24 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -5435,6 +5789,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -6028,6 +6400,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -6326,6 +6716,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -6468,6 +6876,24 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -6833,6 +7259,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -7101,6 +7545,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -7355,6 +7817,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -7642,6 +8122,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -7940,6 +8438,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -8164,6 +8680,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -8477,6 +9011,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -8679,6 +9231,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -8898,6 +9468,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -9121,6 +9709,24 @@
               "sumMode": "additive",
               "kind": "children",
               "note": "An orthogonal accounting view of the same draft operating budget."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -9334,6 +9940,24 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -9562,6 +10186,24 @@
               "sumMode": "related",
               "kind": "children",
               "note": "Separate CIP budget. It is related to this department but is not included in the operating appropriation above."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -9752,6 +10394,24 @@
               "sumMode": "additive",
               "kind": "children",
               "note": "An orthogonal accounting view of the same draft operating budget."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -9937,6 +10597,24 @@
               "sumMode": "independent",
               "kind": "children",
               "note": "Department revenue is not an allocation of the department appropriation."
+            },
+            "fundingSources": {
+              "key": "fundingSources",
+              "label": "Shared General Fund sources",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "use",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-revenue:property-tax",
+                "gf-revenue:sales-tax",
+                "gf-revenue:transient-occupancy-tax",
+                "gf-revenue:franchise-fees",
+                "gf-revenue:other-major-revenues",
+                "gf-revenue:department-revenues-transfers-and-reimbursements"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
             }
           },
           "reconciliation": {
@@ -10100,7 +10778,50 @@
             "may-revision",
             "appropriation-ordinance"
           ],
-          "breakdowns": {}
+          "breakdowns": {
+            "fundedBudgets": {
+              "key": "fundedBudgets",
+              "label": "Departments sharing this revenue pool",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "resource",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-department:police",
+                "gf-department:fire-rescue",
+                "gf-department:citywide-program-expenditures",
+                "gf-department:parks-and-recreation",
+                "gf-department:transportation",
+                "gf-department:city-attorney",
+                "gf-department:library",
+                "gf-department:stormwater",
+                "gf-department:homelessness-strategies-and-solutions",
+                "gf-department:environmental-services",
+                "gf-department:department-of-finance",
+                "gf-department:general-services",
+                "gf-department:city-council",
+                "gf-department:city-treasurer",
+                "gf-department:city-planning",
+                "gf-department:economic-development",
+                "gf-department:personnel",
+                "gf-department:purchasing-and-contracting",
+                "gf-department:development-services",
+                "gf-department:office-of-the-mayor",
+                "gf-department:human-resources",
+                "gf-department:city-clerk",
+                "gf-department:city-auditor",
+                "gf-department:communications",
+                "gf-department:performance-and-analytics",
+                "gf-department:office-of-the-iba",
+                "gf-department:department-of-information-technology",
+                "gf-department:public-utilities",
+                "gf-department:office-of-the-commission-on-police-practices",
+                "gf-department:ethics-commission"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
+            }
+          }
         },
         "gf-revenue:sales-tax": {
           "id": "gf-revenue:sales-tax",
@@ -10112,7 +10833,50 @@
             "may-revision",
             "appropriation-ordinance"
           ],
-          "breakdowns": {}
+          "breakdowns": {
+            "fundedBudgets": {
+              "key": "fundedBudgets",
+              "label": "Departments sharing this revenue pool",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "resource",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-department:police",
+                "gf-department:fire-rescue",
+                "gf-department:citywide-program-expenditures",
+                "gf-department:parks-and-recreation",
+                "gf-department:transportation",
+                "gf-department:city-attorney",
+                "gf-department:library",
+                "gf-department:stormwater",
+                "gf-department:homelessness-strategies-and-solutions",
+                "gf-department:environmental-services",
+                "gf-department:department-of-finance",
+                "gf-department:general-services",
+                "gf-department:city-council",
+                "gf-department:city-treasurer",
+                "gf-department:city-planning",
+                "gf-department:economic-development",
+                "gf-department:personnel",
+                "gf-department:purchasing-and-contracting",
+                "gf-department:development-services",
+                "gf-department:office-of-the-mayor",
+                "gf-department:human-resources",
+                "gf-department:city-clerk",
+                "gf-department:city-auditor",
+                "gf-department:communications",
+                "gf-department:performance-and-analytics",
+                "gf-department:office-of-the-iba",
+                "gf-department:department-of-information-technology",
+                "gf-department:public-utilities",
+                "gf-department:office-of-the-commission-on-police-practices",
+                "gf-department:ethics-commission"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
+            }
+          }
         },
         "gf-revenue:transient-occupancy-tax": {
           "id": "gf-revenue:transient-occupancy-tax",
@@ -10124,7 +10888,50 @@
             "may-revision",
             "appropriation-ordinance"
           ],
-          "breakdowns": {}
+          "breakdowns": {
+            "fundedBudgets": {
+              "key": "fundedBudgets",
+              "label": "Departments sharing this revenue pool",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "resource",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-department:police",
+                "gf-department:fire-rescue",
+                "gf-department:citywide-program-expenditures",
+                "gf-department:parks-and-recreation",
+                "gf-department:transportation",
+                "gf-department:city-attorney",
+                "gf-department:library",
+                "gf-department:stormwater",
+                "gf-department:homelessness-strategies-and-solutions",
+                "gf-department:environmental-services",
+                "gf-department:department-of-finance",
+                "gf-department:general-services",
+                "gf-department:city-council",
+                "gf-department:city-treasurer",
+                "gf-department:city-planning",
+                "gf-department:economic-development",
+                "gf-department:personnel",
+                "gf-department:purchasing-and-contracting",
+                "gf-department:development-services",
+                "gf-department:office-of-the-mayor",
+                "gf-department:human-resources",
+                "gf-department:city-clerk",
+                "gf-department:city-auditor",
+                "gf-department:communications",
+                "gf-department:performance-and-analytics",
+                "gf-department:office-of-the-iba",
+                "gf-department:department-of-information-technology",
+                "gf-department:public-utilities",
+                "gf-department:office-of-the-commission-on-police-practices",
+                "gf-department:ethics-commission"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
+            }
+          }
         },
         "gf-revenue:franchise-fees": {
           "id": "gf-revenue:franchise-fees",
@@ -10136,7 +10943,50 @@
             "may-revision",
             "appropriation-ordinance"
           ],
-          "breakdowns": {}
+          "breakdowns": {
+            "fundedBudgets": {
+              "key": "fundedBudgets",
+              "label": "Departments sharing this revenue pool",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "resource",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-department:police",
+                "gf-department:fire-rescue",
+                "gf-department:citywide-program-expenditures",
+                "gf-department:parks-and-recreation",
+                "gf-department:transportation",
+                "gf-department:city-attorney",
+                "gf-department:library",
+                "gf-department:stormwater",
+                "gf-department:homelessness-strategies-and-solutions",
+                "gf-department:environmental-services",
+                "gf-department:department-of-finance",
+                "gf-department:general-services",
+                "gf-department:city-council",
+                "gf-department:city-treasurer",
+                "gf-department:city-planning",
+                "gf-department:economic-development",
+                "gf-department:personnel",
+                "gf-department:purchasing-and-contracting",
+                "gf-department:development-services",
+                "gf-department:office-of-the-mayor",
+                "gf-department:human-resources",
+                "gf-department:city-clerk",
+                "gf-department:city-auditor",
+                "gf-department:communications",
+                "gf-department:performance-and-analytics",
+                "gf-department:office-of-the-iba",
+                "gf-department:department-of-information-technology",
+                "gf-department:public-utilities",
+                "gf-department:office-of-the-commission-on-police-practices",
+                "gf-department:ethics-commission"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
+            }
+          }
         },
         "gf-revenue:other-major-revenues": {
           "id": "gf-revenue:other-major-revenues",
@@ -10148,7 +10998,50 @@
             "may-revision",
             "appropriation-ordinance"
           ],
-          "breakdowns": {}
+          "breakdowns": {
+            "fundedBudgets": {
+              "key": "fundedBudgets",
+              "label": "Departments sharing this revenue pool",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "resource",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-department:police",
+                "gf-department:fire-rescue",
+                "gf-department:citywide-program-expenditures",
+                "gf-department:parks-and-recreation",
+                "gf-department:transportation",
+                "gf-department:city-attorney",
+                "gf-department:library",
+                "gf-department:stormwater",
+                "gf-department:homelessness-strategies-and-solutions",
+                "gf-department:environmental-services",
+                "gf-department:department-of-finance",
+                "gf-department:general-services",
+                "gf-department:city-council",
+                "gf-department:city-treasurer",
+                "gf-department:city-planning",
+                "gf-department:economic-development",
+                "gf-department:personnel",
+                "gf-department:purchasing-and-contracting",
+                "gf-department:development-services",
+                "gf-department:office-of-the-mayor",
+                "gf-department:human-resources",
+                "gf-department:city-clerk",
+                "gf-department:city-auditor",
+                "gf-department:communications",
+                "gf-department:performance-and-analytics",
+                "gf-department:office-of-the-iba",
+                "gf-department:department-of-information-technology",
+                "gf-department:public-utilities",
+                "gf-department:office-of-the-commission-on-police-practices",
+                "gf-department:ethics-commission"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
+            }
+          }
         },
         "gf-revenue:department-revenues-transfers-and-reimbursements": {
           "id": "gf-revenue:department-revenues-transfers-and-reimbursements",
@@ -10160,7 +11053,50 @@
             "may-revision",
             "appropriation-ordinance"
           ],
-          "breakdowns": {}
+          "breakdowns": {
+            "fundedBudgets": {
+              "key": "fundedBudgets",
+              "label": "Departments sharing this revenue pool",
+              "kind": "fundingContext",
+              "poolId": "general",
+              "role": "resource",
+              "basis": "reconciledFinal",
+              "sumMode": "independent",
+              "children": [
+                "gf-department:police",
+                "gf-department:fire-rescue",
+                "gf-department:citywide-program-expenditures",
+                "gf-department:parks-and-recreation",
+                "gf-department:transportation",
+                "gf-department:city-attorney",
+                "gf-department:library",
+                "gf-department:stormwater",
+                "gf-department:homelessness-strategies-and-solutions",
+                "gf-department:environmental-services",
+                "gf-department:department-of-finance",
+                "gf-department:general-services",
+                "gf-department:city-council",
+                "gf-department:city-treasurer",
+                "gf-department:city-planning",
+                "gf-department:economic-development",
+                "gf-department:personnel",
+                "gf-department:purchasing-and-contracting",
+                "gf-department:development-services",
+                "gf-department:office-of-the-mayor",
+                "gf-department:human-resources",
+                "gf-department:city-clerk",
+                "gf-department:city-auditor",
+                "gf-department:communications",
+                "gf-department:performance-and-analytics",
+                "gf-department:office-of-the-iba",
+                "gf-department:department-of-information-technology",
+                "gf-department:public-utilities",
+                "gf-department:office-of-the-commission-on-police-practices",
+                "gf-department:ethics-commission"
+              ],
+              "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
+            }
+          }
         },
         "fund:special:engineering-and-capital-projects-fund": {
           "id": "fund:special:engineering-and-capital-projects-fund",
@@ -10171,7 +11107,40 @@
           "sourceIds": [
             "draft-volume-2"
           ],
-          "breakdowns": {},
+          "breakdowns": {
+            "expenseCategories": {
+              "key": "expenseCategories",
+              "label": "Operating expense categories",
+              "children": [
+                "fund:special:engineering-and-capital-projects-fund:expense:personnel-cost",
+                "fund:special:engineering-and-capital-projects-fund:expense:fringe-benefits",
+                "fund:special:engineering-and-capital-projects-fund:expense:supplies",
+                "fund:special:engineering-and-capital-projects-fund:expense:contracts-and-services",
+                "fund:special:engineering-and-capital-projects-fund:expense:information-technology",
+                "fund:special:engineering-and-capital-projects-fund:expense:energy-and-utilities",
+                "fund:special:engineering-and-capital-projects-fund:expense:other-expenses",
+                "fund:special:engineering-and-capital-projects-fund:expense:capital-expenses"
+              ],
+              "basis": "draftDetail",
+              "sumMode": "additive",
+              "kind": "children",
+              "note": "Exact operating-expense categories from the fund statement."
+            },
+            "revenueCategories": {
+              "key": "revenueCategories",
+              "label": "Revenue categories",
+              "children": [
+                "fund:special:engineering-and-capital-projects-fund:revenue:charges-for-services",
+                "fund:special:engineering-and-capital-projects-fund:revenue:fines-forfeitures-and-penalties",
+                "fund:special:engineering-and-capital-projects-fund:revenue:other-revenue",
+                "fund:special:engineering-and-capital-projects-fund:revenue:revenue-from-use-of-money-and-property"
+              ],
+              "basis": "draftDetail",
+              "sumMode": "independent",
+              "kind": "children",
+              "note": "Revenue is an independent view and should not be added to operating expenditures."
+            }
+          },
           "metrics": {
             "fy2025": 169087688,
             "fy2026": 179070372
@@ -18429,7 +19398,44 @@
           "sourceIds": [
             "draft-volume-2"
           ],
-          "breakdowns": {},
+          "breakdowns": {
+            "expenseCategories": {
+              "key": "expenseCategories",
+              "label": "Operating expense categories",
+              "children": [
+                "fund:enterprise:water-utility-operating-fund:expense:personnel-cost",
+                "fund:enterprise:water-utility-operating-fund:expense:fringe-benefits",
+                "fund:enterprise:water-utility-operating-fund:expense:supplies",
+                "fund:enterprise:water-utility-operating-fund:expense:contracts-and-services",
+                "fund:enterprise:water-utility-operating-fund:expense:information-technology",
+                "fund:enterprise:water-utility-operating-fund:expense:energy-and-utilities",
+                "fund:enterprise:water-utility-operating-fund:expense:other-expenses",
+                "fund:enterprise:water-utility-operating-fund:expense:transfers-out",
+                "fund:enterprise:water-utility-operating-fund:expense:capital-expenses"
+              ],
+              "basis": "draftDetail",
+              "sumMode": "additive",
+              "kind": "children",
+              "note": "Exact operating-expense categories from the fund statement. Separate CIP expenditures are shown in the Capital Improvements Program branch."
+            },
+            "revenueCategories": {
+              "key": "revenueCategories",
+              "label": "Revenue categories",
+              "children": [
+                "fund:enterprise:water-utility-operating-fund:revenue:charges-for-services",
+                "fund:enterprise:water-utility-operating-fund:revenue:fines-forfeitures-and-penalties",
+                "fund:enterprise:water-utility-operating-fund:revenue:other-revenue",
+                "fund:enterprise:water-utility-operating-fund:revenue:revenue-from-federal-agencies",
+                "fund:enterprise:water-utility-operating-fund:revenue:revenue-from-other-agencies",
+                "fund:enterprise:water-utility-operating-fund:revenue:revenue-from-use-of-money-and-property",
+                "fund:enterprise:water-utility-operating-fund:revenue:transfers-in"
+              ],
+              "basis": "draftDetail",
+              "sumMode": "independent",
+              "kind": "children",
+              "note": "Revenue is an independent view and should not be added to operating expenditures."
+            }
+          },
           "metrics": {
             "fy2025": 767171216,
             "fy2026": 847768484
@@ -28977,6 +29983,1090 @@
             }
           },
           "note": "Projects not matched by the transparent keyword rules."
+        },
+        "gf-department:police:salary:base-position-wages": {
+          "id": "gf-department:police:salary:base-position-wages",
+          "label": "Base position wages (remainder)",
+          "amount": 304231728,
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "note": "Calculated as total Personnel Cost less the separately published pay, overtime, and savings lines.",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:salary:overtime-budgeted": {
+          "id": "gf-department:police:salary:overtime-budgeted",
+          "label": "Budgeted overtime",
+          "amount": 47244269,
+          "stage": "draftDetail",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:salary:premium-and-other-pay": {
+          "id": "gf-department:police:salary:premium-and-other-pay",
+          "label": "Premium, certification, shift & other pay",
+          "amount": 41231440,
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "note": "Sum of the published positive pay lines other than base position wages and budgeted overtime.",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:salary:budgeted-savings": {
+          "id": "gf-department:police:salary:budgeted-savings",
+          "label": "Budgeted savings & level adjustments",
+          "amount": -36295728,
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "note": "Sum of Adjust Budget to Approved Levels, Budgeted Personnel Expenditure Savings, and Salary Savings.",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:401-a-plan-mandatory": {
+          "id": "gf-department:police:fringe:401-a-plan-mandatory",
+          "label": "401(A) Plan Mandatory",
+          "amount": 350059,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-drop-general": {
+          "id": "gf-department:police:fringe:cers-drop-general",
+          "label": "CERS - DROP - General",
+          "amount": 61079,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-drop-safety-police": {
+          "id": "gf-department:police:fringe:cers-drop-safety-police",
+          "label": "CERS - DROP - Safety Police",
+          "amount": 862317,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-general-retirement": {
+          "id": "gf-department:police:fringe:cers-general-retirement",
+          "label": "CERS - General Retirement",
+          "amount": 14142807,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-general-retirement-2010": {
+          "id": "gf-department:police:fringe:cers-general-retirement-2010",
+          "label": "CERS - General Retirement 2010",
+          "amount": 5945256,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-safety-police-2010": {
+          "id": "gf-department:police:fringe:cers-safety-police-2010",
+          "label": "CERS - Safety Retirement - Police 2010",
+          "amount": 3800086,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-safety-police-2012": {
+          "id": "gf-department:police:fringe:cers-safety-police-2012",
+          "label": "CERS - Safety Retirement - Police 2012",
+          "amount": 1199946,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-safety-police-2013": {
+          "id": "gf-department:police:fringe:cers-safety-police-2013",
+          "label": "CERS - Safety Retirement - Police 2013",
+          "amount": 37991994,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-safety-police-2014": {
+          "id": "gf-department:police:fringe:cers-safety-police-2014",
+          "label": "CERS - Safety Retirement - Police 2014",
+          "amount": 0,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-safety-police": {
+          "id": "gf-department:police:fringe:cers-safety-police",
+          "label": "CERS - Safety Retirement - Police",
+          "amount": 116202832,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-uaal-classified": {
+          "id": "gf-department:police:fringe:cers-uaal-classified",
+          "label": "CERS-UAAL Classified Unrepresented",
+          "amount": 56947,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-uaal-mea-admin-field": {
+          "id": "gf-department:police:fringe:cers-uaal-mea-admin-field",
+          "label": "CERS-UAAL MEA Admin/Field",
+          "amount": 22957,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-uaal-mea-professional": {
+          "id": "gf-department:police:fringe:cers-uaal-mea-professional",
+          "label": "CERS-UAAL MEA Professional",
+          "amount": 20821,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-uaal-mea-supervisory": {
+          "id": "gf-department:police:fringe:cers-uaal-mea-supervisory",
+          "label": "CERS-UAAL MEA Supervisory",
+          "amount": 30081,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-uaal-mea-technical": {
+          "id": "gf-department:police:fringe:cers-uaal-mea-technical",
+          "label": "CERS-UAAL MEA Technical",
+          "amount": 42141,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-uaal-police-active": {
+          "id": "gf-department:police:fringe:cers-uaal-police-active",
+          "label": "CERS-UAAL Police Active",
+          "amount": 1857045,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:cers-uaal-police-drop": {
+          "id": "gf-department:police:fringe:cers-uaal-police-drop",
+          "label": "CERS-UAAL Police DROP",
+          "amount": 713220,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:employer-contribution-rmt": {
+          "id": "gf-department:police:fringe:employer-contribution-rmt",
+          "label": "Employer Contribution RMT",
+          "amount": 91736,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:executive-life-insurance": {
+          "id": "gf-department:police:fringe:executive-life-insurance",
+          "label": "Executive Life Insurance Premium",
+          "amount": 0,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:fica-medicare": {
+          "id": "gf-department:police:fringe:fica-medicare",
+          "label": "FICA/Medicare Insurance",
+          "amount": 5167970,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:flexible-benefit-plan": {
+          "id": "gf-department:police:fringe:flexible-benefit-plan",
+          "label": "Flexible Benefit Plan",
+          "amount": 35919809,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:long-term-disability": {
+          "id": "gf-department:police:fringe:long-term-disability",
+          "label": "Long Term Disability",
+          "amount": 1219032,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:retiree-health-contribution": {
+          "id": "gf-department:police:fringe:retiree-health-contribution",
+          "label": "Retiree Health Contribution",
+          "amount": 7616919,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:risk-management-administration": {
+          "id": "gf-department:police:fringe:risk-management-administration",
+          "label": "Risk Management Administration",
+          "amount": 3821621,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:spsp-h-budgeted": {
+          "id": "gf-department:police:fringe:spsp-h-budgeted",
+          "label": "SPSP-H Budgeted",
+          "amount": 182323,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:spsp-h-general-members": {
+          "id": "gf-department:police:fringe:spsp-h-general-members",
+          "label": "SPSP-H General Members",
+          "amount": 137010,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:spsp-h-public-safety": {
+          "id": "gf-department:police:fringe:spsp-h-public-safety",
+          "label": "SPSP-H Public Safety Members",
+          "amount": 0,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:supp-pension-savings-mandatory": {
+          "id": "gf-department:police:fringe:supp-pension-savings-mandatory",
+          "label": "Supplemental Pension Savings Plan Mandatory",
+          "amount": 488134,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:supp-pension-savings-voluntary": {
+          "id": "gf-department:police:fringe:supp-pension-savings-voluntary",
+          "label": "Supplemental Pension Savings Plan Voluntary",
+          "amount": 429389,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:unemployment-insurance": {
+          "id": "gf-department:police:fringe:unemployment-insurance",
+          "label": "Unemployment Insurance",
+          "amount": 242945,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:police:fringe:workers-comp-insurance": {
+          "id": "gf-department:police:fringe:workers-comp-insurance",
+          "label": "Workers' Compensation Insurance",
+          "amount": 26198924,
+          "stage": "draftDetail",
+          "type": "fringeBenefitComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:fire-rescue:expense:transfers-out": {
+          "id": "gf-department:fire-rescue:expense:transfers-out",
+          "label": "Transfers Out",
+          "amount": 15174,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 0,
+            "fy2026": 15174,
+            "change": 0
+          }
+        },
+        "gf-department:fire-rescue:expense:capital-expenses": {
+          "id": "gf-department:fire-rescue:expense:capital-expenses",
+          "label": "Capital Expenses",
+          "amount": 385775,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 276826,
+            "fy2026": 385775,
+            "change": 0
+          }
+        },
+        "gf-department:fire-rescue:expense:debt-expenses": {
+          "id": "gf-department:fire-rescue:expense:debt-expenses",
+          "label": "Debt Expenses",
+          "amount": 4373211,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 2320228,
+            "fy2026": 4266079,
+            "change": 107132
+          }
+        },
+        "gf-department:fire-rescue:salary:base-position-wages": {
+          "id": "gf-department:fire-rescue:salary:base-position-wages",
+          "label": "Base position wages (remainder)",
+          "amount": 140331579,
+          "note": "Calculated as Personnel Cost less the separately published overtime, additional-pay, and savings lines.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:fire-rescue:salary:overtime-budgeted": {
+          "id": "gf-department:fire-rescue:salary:overtime-budgeted",
+          "label": "Budgeted overtime",
+          "amount": 56654973,
+          "stage": "draftDetail",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:fire-rescue:salary:premium-and-other-pay": {
+          "id": "gf-department:fire-rescue:salary:premium-and-other-pay",
+          "label": "Premium, certification, shift & other pay",
+          "amount": 27227722,
+          "note": "Sum of the published positive pay lines other than base position wages and budgeted overtime.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:fire-rescue:salary:budgeted-savings": {
+          "id": "gf-department:fire-rescue:salary:budgeted-savings",
+          "label": "Budgeted savings & level adjustments",
+          "amount": -8086807,
+          "note": "Sum of the published negative salary and personnel-savings lines.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:parks-and-recreation:salary:base-position-wages": {
+          "id": "gf-department:parks-and-recreation:salary:base-position-wages",
+          "label": "Base position wages (remainder)",
+          "amount": 68356272,
+          "note": "Calculated as Personnel Cost less the separately published overtime, additional-pay, and savings lines.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:parks-and-recreation:salary:overtime-budgeted": {
+          "id": "gf-department:parks-and-recreation:salary:overtime-budgeted",
+          "label": "Budgeted overtime",
+          "amount": 421809,
+          "stage": "draftDetail",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:parks-and-recreation:salary:premium-and-other-pay": {
+          "id": "gf-department:parks-and-recreation:salary:premium-and-other-pay",
+          "label": "Premium, certification, shift & other pay",
+          "amount": 1824971,
+          "note": "Sum of the published positive pay lines other than base position wages and budgeted overtime.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:parks-and-recreation:salary:budgeted-savings": {
+          "id": "gf-department:parks-and-recreation:salary:budgeted-savings",
+          "label": "Budgeted savings & level adjustments",
+          "amount": -4629930,
+          "note": "Sum of the published negative salary and personnel-savings lines.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:transportation:salary:base-position-wages": {
+          "id": "gf-department:transportation:salary:base-position-wages",
+          "label": "Base position wages (remainder)",
+          "amount": 46185076,
+          "note": "Calculated as Personnel Cost less the separately published overtime, additional-pay, and savings lines.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:transportation:salary:overtime-budgeted": {
+          "id": "gf-department:transportation:salary:overtime-budgeted",
+          "label": "Budgeted overtime",
+          "amount": 5052246,
+          "stage": "draftDetail",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:transportation:salary:premium-and-other-pay": {
+          "id": "gf-department:transportation:salary:premium-and-other-pay",
+          "label": "Premium, certification, shift & other pay",
+          "amount": 2473592,
+          "note": "Sum of the published positive pay lines other than base position wages and budgeted overtime.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:transportation:salary:budgeted-savings": {
+          "id": "gf-department:transportation:salary:budgeted-savings",
+          "label": "Budgeted savings & level adjustments",
+          "amount": -1511221,
+          "note": "Sum of the published negative salary and personnel-savings lines.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:city-attorney:salary:base-position-wages": {
+          "id": "gf-department:city-attorney:salary:base-position-wages",
+          "label": "Base position wages (remainder)",
+          "amount": 62098494,
+          "note": "Calculated as Personnel Cost less the separately published overtime, additional-pay, and savings lines.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:city-attorney:salary:overtime-budgeted": {
+          "id": "gf-department:city-attorney:salary:overtime-budgeted",
+          "label": "Budgeted overtime",
+          "amount": 10512,
+          "stage": "draftDetail",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:city-attorney:salary:premium-and-other-pay": {
+          "id": "gf-department:city-attorney:salary:premium-and-other-pay",
+          "label": "Premium, certification, shift & other pay",
+          "amount": 1687875,
+          "note": "Sum of the published positive pay lines other than base position wages and budgeted overtime.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:city-attorney:salary:budgeted-savings": {
+          "id": "gf-department:city-attorney:salary:budgeted-savings",
+          "label": "Budgeted savings & level adjustments",
+          "amount": -7481334,
+          "note": "Sum of the published negative salary and personnel-savings lines.",
+          "stage": "derivedClassification",
+          "type": "salaryComponent",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {}
+        },
+        "gf-department:parks-and-recreation:program:published-total-remainder": {
+          "id": "gf-department:parks-and-recreation:program:published-total-remainder",
+          "label": "Published total less listed program rows",
+          "amount": 217363,
+          "stage": "derivedClassification",
+          "type": "programReconciliation",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "note": "The official department total exceeds the sum of the individually extracted program rows by this amount."
+        },
+        "fund:enterprise:water-utility-operating-fund:expense:personnel-cost": {
+          "id": "fund:enterprise:water-utility-operating-fund:expense:personnel-cost",
+          "label": "Personnel Cost",
+          "amount": 99984809,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 92107173,
+            "fy2026": 93301065,
+            "change": 6683744
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:expense:fringe-benefits": {
+          "id": "fund:enterprise:water-utility-operating-fund:expense:fringe-benefits",
+          "label": "Fringe Benefits",
+          "amount": 58157110,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 50445293,
+            "fy2026": 56032807,
+            "change": 2124303
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:expense:supplies": {
+          "id": "fund:enterprise:water-utility-operating-fund:expense:supplies",
+          "label": "Supplies",
+          "amount": 379658591,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 267522611,
+            "fy2026": 320566571,
+            "change": 59092020
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:expense:contracts-and-services": {
+          "id": "fund:enterprise:water-utility-operating-fund:expense:contracts-and-services",
+          "label": "Contracts & Services",
+          "amount": 192663707,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 206303963,
+            "fy2026": 188639036,
+            "change": 4024671
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:expense:information-technology": {
+          "id": "fund:enterprise:water-utility-operating-fund:expense:information-technology",
+          "label": "Information Technology",
+          "amount": 21753044,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 12300947,
+            "fy2026": 20995426,
+            "change": 757618
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:expense:energy-and-utilities": {
+          "id": "fund:enterprise:water-utility-operating-fund:expense:energy-and-utilities",
+          "label": "Energy and Utilities",
+          "amount": 32913513,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 15503731,
+            "fy2026": 29891192,
+            "change": 3022321
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:expense:other-expenses": {
+          "id": "fund:enterprise:water-utility-operating-fund:expense:other-expenses",
+          "label": "Other Expenses",
+          "amount": 19214488,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 14702366,
+            "fy2026": 20001665,
+            "change": -787177
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:expense:transfers-out": {
+          "id": "fund:enterprise:water-utility-operating-fund:expense:transfers-out",
+          "label": "Transfers Out",
+          "amount": 141099486,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 105856786,
+            "fy2026": 113912115,
+            "change": 27187371
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:expense:capital-expenses": {
+          "id": "fund:enterprise:water-utility-operating-fund:expense:capital-expenses",
+          "label": "Capital Expenses",
+          "amount": 2422707,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 2428347,
+            "fy2026": 4428607,
+            "change": -2005900
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:revenue:charges-for-services": {
+          "id": "fund:enterprise:water-utility-operating-fund:revenue:charges-for-services",
+          "label": "Charges for Services",
+          "amount": 625376298,
+          "stage": "draftDetail",
+          "type": "revenueCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 733693982,
+            "fy2026": 625377315,
+            "change": -1017
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:revenue:fines-forfeitures-and-penalties": {
+          "id": "fund:enterprise:water-utility-operating-fund:revenue:fines-forfeitures-and-penalties",
+          "label": "Fines, Forfeitures and Penalties",
+          "amount": 0,
+          "stage": "draftDetail",
+          "type": "revenueCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 53185,
+            "fy2026": 0,
+            "change": 0
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:revenue:other-revenue": {
+          "id": "fund:enterprise:water-utility-operating-fund:revenue:other-revenue",
+          "label": "Other Revenue",
+          "amount": 271374795,
+          "stage": "draftDetail",
+          "type": "revenueCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 280805725,
+            "fy2026": 271374795,
+            "change": 0
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:revenue:revenue-from-federal-agencies": {
+          "id": "fund:enterprise:water-utility-operating-fund:revenue:revenue-from-federal-agencies",
+          "label": "Revenue from Federal Agencies",
+          "amount": 259484,
+          "stage": "draftDetail",
+          "type": "revenueCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 0,
+            "fy2026": 259484,
+            "change": 0
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:revenue:revenue-from-other-agencies": {
+          "id": "fund:enterprise:water-utility-operating-fund:revenue:revenue-from-other-agencies",
+          "label": "Revenue from Other Agencies",
+          "amount": 703559,
+          "stage": "draftDetail",
+          "type": "revenueCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 4051596,
+            "fy2026": 703559,
+            "change": 0
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:revenue:revenue-from-use-of-money-and-property": {
+          "id": "fund:enterprise:water-utility-operating-fund:revenue:revenue-from-use-of-money-and-property",
+          "label": "Revenue from Use of Money and Property",
+          "amount": 11580178,
+          "stage": "draftDetail",
+          "type": "revenueCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 12316483,
+            "fy2026": 11580178,
+            "change": 0
+          }
+        },
+        "fund:enterprise:water-utility-operating-fund:revenue:transfers-in": {
+          "id": "fund:enterprise:water-utility-operating-fund:revenue:transfers-in",
+          "label": "Transfers In",
+          "amount": 49183962,
+          "stage": "draftDetail",
+          "type": "revenueCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 27231357,
+            "fy2026": 49183962,
+            "change": 0
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:expense:personnel-cost": {
+          "id": "fund:special:engineering-and-capital-projects-fund:expense:personnel-cost",
+          "label": "Personnel Cost",
+          "amount": 102844180,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 98628907,
+            "fy2026": 102854927,
+            "change": -10747
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:expense:fringe-benefits": {
+          "id": "fund:special:engineering-and-capital-projects-fund:expense:fringe-benefits",
+          "label": "Fringe Benefits",
+          "amount": 54770631,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 49366693,
+            "fy2026": 53465281,
+            "change": 1305350
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:expense:supplies": {
+          "id": "fund:special:engineering-and-capital-projects-fund:expense:supplies",
+          "label": "Supplies",
+          "amount": 358057,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 245548,
+            "fy2026": 657780,
+            "change": -299723
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:expense:contracts-and-services": {
+          "id": "fund:special:engineering-and-capital-projects-fund:expense:contracts-and-services",
+          "label": "Contracts & Services",
+          "amount": 12289620,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 9852523,
+            "fy2026": 9867386,
+            "change": 2422234
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:expense:information-technology": {
+          "id": "fund:special:engineering-and-capital-projects-fund:expense:information-technology",
+          "label": "Information Technology",
+          "amount": 10243417,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 8826282,
+            "fy2026": 10876052,
+            "change": -632635
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:expense:energy-and-utilities": {
+          "id": "fund:special:engineering-and-capital-projects-fund:expense:energy-and-utilities",
+          "label": "Energy and Utilities",
+          "amount": 447881,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 392979,
+            "fy2026": 432393,
+            "change": 15488
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:expense:other-expenses": {
+          "id": "fund:special:engineering-and-capital-projects-fund:expense:other-expenses",
+          "label": "Other Expenses",
+          "amount": 916553,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 967628,
+            "fy2026": 916553,
+            "change": 0
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:expense:capital-expenses": {
+          "id": "fund:special:engineering-and-capital-projects-fund:expense:capital-expenses",
+          "label": "Capital Expenses",
+          "amount": 0,
+          "stage": "draftDetail",
+          "type": "expenseCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 807126,
+            "fy2026": 0,
+            "change": 0
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:revenue:charges-for-services": {
+          "id": "fund:special:engineering-and-capital-projects-fund:revenue:charges-for-services",
+          "label": "Charges for Services",
+          "amount": 181870339,
+          "stage": "draftDetail",
+          "type": "revenueCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 186674652,
+            "fy2026": 167180209,
+            "change": 14690130
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:revenue:fines-forfeitures-and-penalties": {
+          "id": "fund:special:engineering-and-capital-projects-fund:revenue:fines-forfeitures-and-penalties",
+          "label": "Fines, Forfeitures and Penalties",
+          "amount": 0,
+          "stage": "draftDetail",
+          "type": "revenueCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 47000,
+            "fy2026": 0,
+            "change": 0
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:revenue:other-revenue": {
+          "id": "fund:special:engineering-and-capital-projects-fund:revenue:other-revenue",
+          "label": "Other Revenue",
+          "amount": 0,
+          "stage": "draftDetail",
+          "type": "revenueCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 464866,
+            "fy2026": 0,
+            "change": 0
+          }
+        },
+        "fund:special:engineering-and-capital-projects-fund:revenue:revenue-from-use-of-money-and-property": {
+          "id": "fund:special:engineering-and-capital-projects-fund:revenue:revenue-from-use-of-money-and-property",
+          "label": "Revenue from Use of Money and Property",
+          "amount": 0,
+          "stage": "draftDetail",
+          "type": "revenueCategory",
+          "sourceIds": [
+            "draft-volume-2"
+          ],
+          "breakdowns": {},
+          "metrics": {
+            "fy2025": 413902,
+            "fy2026": 0,
+            "change": 0
+          }
         }
       },
       "flowViews": {
@@ -28987,56 +31077,56 @@
               "viewId": "r-general",
               "label": "General Fund revenues",
               "amount": 2256647832,
-              "targetId": "fund-type:general",
+              "targetId": "resource:general",
               "column": 0
             },
             {
               "viewId": "r-special",
               "label": "Special-purpose revenues",
               "amount": 1052703607,
-              "targetId": "fund-type:special",
+              "targetId": "resource:special",
               "column": 0
             },
             {
               "viewId": "r-enterprise",
               "label": "Enterprise revenues",
               "amount": 2230789493,
-              "targetId": "fund-type:enterprise",
+              "targetId": "resource:enterprise",
               "column": 0
             },
             {
               "viewId": "r-internal",
               "label": "Internal-service revenues",
               "amount": 220768893,
-              "targetId": "fund-type:internal",
+              "targetId": "resource:internal",
               "column": 0
             },
             {
               "viewId": "r-capital",
               "label": "Capital-project revenues",
               "amount": 70537951,
-              "targetId": "fund-type:capital-project",
+              "targetId": "resource:capital",
               "column": 0
             },
             {
               "viewId": "r-balance-special",
               "label": "Fund balance / financing",
               "amount": 155239367,
-              "targetId": "fund-type:special",
+              "targetId": "resource:balancing",
               "column": 0
             },
             {
               "viewId": "r-balance-internal",
               "label": "Fund balance / financing",
               "amount": 4927454,
-              "targetId": "fund-type:internal",
+              "targetId": "resource:balancing",
               "column": 0
             },
             {
               "viewId": "r-balance-capital",
               "label": "Other capital financing",
               "amount": 495321549,
-              "targetId": "fund-type:cip",
+              "targetId": "resource:balancing",
               "column": 0
             },
             {
@@ -29224,6 +31314,56 @@
           ],
           "basis": "reconciledFinal",
           "note": "Exact enacted uses, reconciled against published fund-type revenues. Click a node or flow to drill down."
+        }
+      },
+      "fundingPools": {
+        "general": {
+          "id": "general",
+          "label": "Shared General Fund pool",
+          "nodeId": "fund-type:general",
+          "amount": 2256647832,
+          "resourceIds": [
+            "gf-revenue:property-tax",
+            "gf-revenue:sales-tax",
+            "gf-revenue:transient-occupancy-tax",
+            "gf-revenue:franchise-fees",
+            "gf-revenue:other-major-revenues",
+            "gf-revenue:department-revenues-transfers-and-reimbursements"
+          ],
+          "useIds": [
+            "gf-department:police",
+            "gf-department:fire-rescue",
+            "gf-department:citywide-program-expenditures",
+            "gf-department:parks-and-recreation",
+            "gf-department:transportation",
+            "gf-department:city-attorney",
+            "gf-department:library",
+            "gf-department:stormwater",
+            "gf-department:homelessness-strategies-and-solutions",
+            "gf-department:environmental-services",
+            "gf-department:department-of-finance",
+            "gf-department:general-services",
+            "gf-department:city-council",
+            "gf-department:city-treasurer",
+            "gf-department:city-planning",
+            "gf-department:economic-development",
+            "gf-department:personnel",
+            "gf-department:purchasing-and-contracting",
+            "gf-department:development-services",
+            "gf-department:office-of-the-mayor",
+            "gf-department:human-resources",
+            "gf-department:city-clerk",
+            "gf-department:city-auditor",
+            "gf-department:communications",
+            "gf-department:performance-and-analytics",
+            "gf-department:office-of-the-iba",
+            "gf-department:department-of-information-technology",
+            "gf-department:public-utilities",
+            "gf-department:office-of-the-commission-on-police-practices",
+            "gf-department:ethics-commission"
+          ],
+          "basis": "reconciledFinal",
+          "note": "General Fund revenues are pooled and are not officially attributed to individual departments. This view shows shared funding context, not a direct source-to-department allocation."
         }
       }
     }
